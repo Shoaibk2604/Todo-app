@@ -7,8 +7,9 @@ import AllScreen from "./AllScreen";
 const Main = (props) => {
     const [inputData, onChangedata] = useState("");
     const [items, addItems] = useState([]);
-    const [activeData, updateActive] = useState([]);
-    const [completedData, updateComplete] = useState([]);
+    const [filter, updatefilter] = useState([]);
+    // const [activeData, updateActive] = useState([]);
+    // const [completedData, updateComplete] = useState([]);
     const [division, updatediv] = useState("all");
 
     // Add Items
@@ -35,6 +36,8 @@ const Main = (props) => {
             addItems(newTodos);
             savedata(newTodos);
             onChangedata("");
+
+            
         }
     };
     // enter key handle
@@ -57,14 +60,23 @@ const Main = (props) => {
         if (get != null || get != undefined) {
             const gotData = JSON.parse(get);
             addItems([...gotData]);
+            
         }
     };
 
     //  useEffect hook
 
     useEffect(() => {
-        getData();  
+        getData();
     }, []);
+
+
+    
+    useEffect(() => {
+        completedItems(division)
+    }, [inputData]);
+    
+
 
     // onclick event complete
     const changeClass = (idx,item)=>{
@@ -74,8 +86,9 @@ const Main = (props) => {
             }
             return todo
           })
-          addItems(updatedTodos)
+          updatefilter(updatedTodos)
           savedata(item)
+
           completedItems(division)
     }
 
@@ -88,7 +101,8 @@ const Main = (props) => {
                     return item;
                 }
             })
-            updateComplete(completedFil)
+            console.log(completedFil);
+            updatefilter(completedFil)
             updatediv(name)
         }
         else if(name==="active"){
@@ -97,12 +111,12 @@ const Main = (props) => {
                     return active;
                 }
             })
-            updateActive(activeFil);
+            updatefilter(activeFil);
             updatediv(name)
         }
         else{
             updatediv(name)
-
+        
         }
 
     }
@@ -113,7 +127,7 @@ const Main = (props) => {
 
     const deleteItem = (id) => {
         const deleteItemIndex = items.filter((elem, ind) => {
-            return ind !== id;
+            return elem.id !== id;
         });
         localStorage.setItem("data", JSON.stringify(deleteItemIndex));
         addItems(deleteItemIndex);
@@ -151,14 +165,14 @@ const Main = (props) => {
                     </div>
                 </section>
                 <section className="main-contain">
-                    { division == "active" &&  <ActiveScreen deta ={activeData} fun={changeClass} dlt={deleteItem}/> }
-                    {division == "completed" &&  <CompletedScreen dota = {completedData} fun= {changeClass} dlt={deleteItem} />}
+                    { division == "active" &&  <ActiveScreen deta ={filter} fun={changeClass} dlt={deleteItem}/> }
+                    {division == "completed" &&  <CompletedScreen dota = {filter} fun= {changeClass} dlt={deleteItem} />}
                     {division == "all" && <AllScreen data = {items} fun= {changeClass} dlt={deleteItem} />}
                     
                     <hr />
                 
                     <div className="fix-btn">
-                        <div className="font-bottom">{division=="all" && items.length}{division=="active" && activeData.length} {division=="completed" && completedData.length} item left</div>
+                        <div className="font-bottom">{division=="all" && items.length}{division=="active" && filter.length} {division=="completed" && filter.length} item left</div>
                         <div className="list-items">
                             <ul>
                                 <li className={division=="all"?"active":""} onClick={()=> completedItems('all')}>All</li>

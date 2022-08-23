@@ -18,7 +18,7 @@ const CompletedScreen = (props) => {
             <h3 className={item.completed ? "complete" : "incomplete"}>
               {item.text}
             </h3>
-            <button onClick={() => props.dlt(index)}>
+            <button onClick={() => props.dlt(item.id)}>
               <RiDeleteBinLine />
             </button>
           </div>

@@ -10,7 +10,7 @@ const AllScreen = (props)=>{
                                 <div className="tab" key={index}>
                                     <button ><MdDone  onClick={()=>props.fun(item.id,props.data)} className={item.completed?"done":"undone"}/></button>
                                     <h3 className={item.completed?"complete":"incomplete"}>{item.text}</h3>
-                                    <button onClick={() => props.dlt(index)}>
+                                    <button onClick={() => props.dlt(item.id)}>
                                         <RiDeleteBinLine />
                                     </button>
                                 </div>
