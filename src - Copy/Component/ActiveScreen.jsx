@@ -16,6 +16,9 @@ const ActiveScreen = (props) => {
         <h3 className={item.completed ? "complete" : "incomplete"}>
           {item.text}
         </h3>
+        <button onClick={() => props.dlt(item.id)}>
+          <RiDeleteBinLine style={{cursor:"pointer"}}/>
+        </button>
       </div>)
         
     }):<EmptyList/>}

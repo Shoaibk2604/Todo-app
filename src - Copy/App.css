@@ -107,7 +107,6 @@ ul li{
 }
 .active{
   color:#3a7bfd;
-  transform: scale(1.1);
 }
 .done{
   color: white;
@@ -120,9 +119,6 @@ background: radial-gradient(circle, rgba(9,27,177,1) 5%, rgba(31,31,251,1) 35%, 
   padding: 15px;
   width: 39vw;
   margin: auto;
-}
-.div-center h5{
-  color: #707179;
 }
 .complete{
   text-decoration: line-through;

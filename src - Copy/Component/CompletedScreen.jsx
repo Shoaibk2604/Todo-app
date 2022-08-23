@@ -7,6 +7,9 @@ const CompletedScreen = (props) => {
   return (
     <div>
       {props.dota.length > 0 ? props.dota.map((item, index) => {
+
+        if(item.status !== 'completed') return <span key={index}>sjhask</span>
+
         return (
           <div className="tab" key={index}>
             <button>
@@ -18,6 +21,9 @@ const CompletedScreen = (props) => {
             <h3 className={item.completed ? "complete" : "incomplete"}>
               {item.text}
             </h3>
+            <button onClick={() => props.dlt(item.id)}>
+              <RiDeleteBinLine style={{cursor:"pointer"}} />
+            </button>
           </div>
         );
       }) : <EmptyList/>}
