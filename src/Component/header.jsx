@@ -4,8 +4,6 @@
 const Header = () => {
     return (<div >
         <div className="header-bg">
-        {/* <img src={background} alt="Background of todo" /> */}
-        {/* <Lottie id='airplane' animationData={fly} loop={true} />; */}
         </div>
     </div>)
 }

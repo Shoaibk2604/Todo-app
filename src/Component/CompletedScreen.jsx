@@ -8,14 +8,14 @@ const CompletedScreen = (props) => {
     <div>
       {props.dota.length > 0 ? props.dota.map((item, index) => {
         return (
-          <div className="tab" key={index}>
+          <div className={props.modeData?"tab":"d-tab"} key={index}>
             <button>
               <MdDone
                 onClick={() =>props.fun(item.id, props.dota)}
-                className={item.completed ? "done" : "undone"}
+                className={item.completed ? "done" : props.modeData?"undone":"d-undone"}
               />
             </button>
-            <h3 className={item.completed ? "complete" : "incomplete"}>
+            <h3 className={item.completed ? "complete" : props.modeData? "incomplete":"d-black"}>
               {item.text}
             </h3>
           </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast, Flip } from "react-toastify";
+import { BsFillSunFill ,BsMoonFill } from "react-icons/bs";
 import ActiveScreen from "./ActiveScreen";
 import CompletedScreen from "./CompletedScreen";
 import AllScreen from "./AllScreen";
@@ -9,6 +10,7 @@ const Main = (props) => {
   const [items, addItems] = useState([]);
   const [filter, updatefilter] = useState([]);
   const [division, updatediv] = useState("all");
+  const[mode, darkMode] = useState(true);
 
   // Add Items
   const addToList = () => {
@@ -59,7 +61,6 @@ const Main = (props) => {
   };
 
   //  useEffect hook
-
   useEffect(() => {
     getData();
   }, []);
@@ -124,9 +125,22 @@ const Main = (props) => {
             return item.completed == false;
     })
     addItems(dltcomplted)
-    
-    
+    savedata(dltcomplted)
   };
+
+// DARK MODE
+const modeChange = ()=>{
+  switch (true) {
+    case mode==true:
+      darkMode(false)
+      break;
+    case mode==false:
+      darkMode(true)
+    default:
+      
+      break;
+  }
+}
 
   // Code
   return (
@@ -135,11 +149,12 @@ const Main = (props) => {
         <section className="head-section">
           <div className="head-ing">
             <h1>TODO</h1>
+            <h1 onClick={()=> modeChange()}>{mode?<BsFillSunFill className={mode?"true":""}/>:<BsMoonFill className={mode?"":"false"}/>}</h1>
           </div>
-          <div className="bg-list">
+          <div className={mode?"bg-list":"d-bg-list"}>
             <div className="inp-style">
               <input
-                className="inp"
+                className={mode?"":"inp"}
                 type="text"
                 value={inputData}
                 onKeyDown={(ev) => handleKey(ev.key)}
@@ -147,20 +162,20 @@ const Main = (props) => {
                 placeholder="Create a new todo.."
               />
             </div>
-            <div className="btn">
+            <div className={mode?"btn":"d-btn"}>
               <button onClick={addToList}>+</button>
             </div>
           </div>
         </section>
-        <section className="main-contain">
+        <section className={mode?"main-contain":"d-main-contain"}>
             {division == "all" && (
-              <AllScreen data={items} fun={changeClass} dlt={deleteItem} />
+              <AllScreen data={items} modeData ={mode}  fun={changeClass} dlt={deleteItem} />
             )}
           {division == "active" && (
-            <ActiveScreen deta={filter} fun={changeClass} dlt={deleteItem} />
+            <ActiveScreen deta={filter} modeData ={mode} fun={changeClass} dlt={deleteItem} />
           )}
           {division == "completed" && (
-            <CompletedScreen dota={filter} fun={changeClass} dlt={deleteItem} />
+            <CompletedScreen dota={filter} modeData ={mode} fun={changeClass} dlt={deleteItem} />
           )}
 
           <hr />
@@ -198,7 +213,7 @@ const Main = (props) => {
               </ul>
             </div>
             <div>
-              <button className="clear-btn font-bottom" onClick={()=>clearAll(items)}>
+              <button className={mode?"clear-btn font-bottom":"d-clear-btn"} onClick={()=>clearAll(items)}>
                 Clear Completed
               </button>
             </div>

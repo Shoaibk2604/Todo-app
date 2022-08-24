@@ -1,6 +1,6 @@
 import React from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { MdDone } from "react-icons/md";
+import { MdDarkMode, MdDone } from "react-icons/md";
 import EmptyList from "./EmptyList";
 const AllScreen = (props) => {
   return (
@@ -8,18 +8,18 @@ const AllScreen = (props) => {
       {props.data.length > 0 ? (
         props.data.map((item, index) => {
           return (
-            <div className="tab" key={index}>
+            <div className={props.modeData?"tab":"d-tab"} key={index}>
               <button>
                 <MdDone
                   onClick={() => props.fun(item.id, props.data)}
-                  className={item.completed ? "done" : "undone"}
+                  className={item.completed ? "done" :props.modeData?"undone":"d-undone"}
                 />
               </button>
-              <h3 className={item.completed ? "complete" : "incomplete"}>
+              <h3 className={item.completed ? "complete" : props.modeData? "incomplete":"d-black"}>
                 {item.text}
               </h3>
               <button onClick={() => props.dlt(item.id)}>
-                <RiDeleteBinLine style={{ cursor: "pointer" }} />
+                <RiDeleteBinLine className="dlt" />
               </button>
             </div>
           );
