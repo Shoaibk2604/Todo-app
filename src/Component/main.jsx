@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { toast, Flip } from "react-toastify";
-import { BsFillSunFill ,BsMoonFill } from "react-icons/bs";
+import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 import ActiveScreen from "./ActiveScreen";
 import CompletedScreen from "./CompletedScreen";
 import AllScreen from "./AllScreen";
 
 const Main = (props) => {
+  // props
+  const{mode,darkMode} = props
+// state
   const [inputData, onChangedata] = useState("");
   const [items, addItems] = useState([]);
   const [filter, updatefilter] = useState([]);
   const [division, updatediv] = useState("all");
-  const[mode, darkMode] = useState(true);
 
   // Add Items
   const addToList = () => {
@@ -112,7 +114,6 @@ const Main = (props) => {
     const deleteItemIndex = items.filter((elem, ind) => {
       return elem.id !== id;
     });
-    console.log("deleteItemIndex",deleteItemIndex);
     addItems(deleteItemIndex);
     completedItems(division);
     localStorage.setItem("data", JSON.stringify(deleteItemIndex));
@@ -121,26 +122,25 @@ const Main = (props) => {
   // Clear completed event
 
   const clearAll = (items) => {
-    const dltcomplted = items.filter((item,index)=>{
-            return item.completed == false;
-    })
-    addItems(dltcomplted)
-    savedata(dltcomplted)
+    const dltcomplted = items.filter((item, index) => {
+      return item.completed == false;
+    });
+    addItems(dltcomplted);
+    savedata(dltcomplted);
   };
 
-// DARK MODE
-const modeChange = ()=>{
-  switch (true) {
-    case mode==true:
-      darkMode(false)
-      break;
-    case mode==false:
-      darkMode(true)
-    default:
-      
-      break;
-  }
-}
+  // DARK MODE
+  const modeChange = () => {
+    switch (true) {
+      case mode == true:
+        darkMode(false);
+        break;
+      case mode == false:
+        darkMode(true);
+      default:
+        break;
+    }
+  };
 
   // Code
   return (
@@ -149,12 +149,18 @@ const modeChange = ()=>{
         <section className="head-section">
           <div className="head-ing">
             <h1>TODO</h1>
-            <h1 onClick={()=> modeChange()}>{mode?<BsFillSunFill className={mode?"true":""}/>:<BsMoonFill className={mode?"":"false"}/>}</h1>
+            <h1 onClick={() => modeChange()}>
+              {mode ? (
+                <BsFillSunFill className={mode ? "true" : ""} />
+              ) : (
+                <BsMoonFill className={mode ? "" : "false"} />
+              )}
+            </h1>
           </div>
-          <div className={mode?"bg-list":"d-bg-list"}>
+          <div className={mode ? "bg-list" : "d-bg-list"}>
             <div className="inp-style">
               <input
-                className={mode?"":"inp"}
+                className={mode ? "" : "inp"}
                 type="text"
                 value={inputData}
                 onKeyDown={(ev) => handleKey(ev.key)}
@@ -162,20 +168,35 @@ const modeChange = ()=>{
                 placeholder="Create a new todo.."
               />
             </div>
-            <div className={mode?"btn":"d-btn"}>
+            <div className={mode ? "btn" : "d-btn"}>
               <button onClick={addToList}>+</button>
             </div>
           </div>
         </section>
-        <section className={mode?"main-contain":"d-main-contain"}>
-            {division == "all" && (
-              <AllScreen data={items} modeData ={mode}  fun={changeClass} dlt={deleteItem} />
-            )}
+        <section className={mode ? "main-contain" : "d-main-contain"}>
+          {division == "all" && (
+            <AllScreen
+              data={items}
+              modeData={mode}
+              fun={changeClass}
+              dlt={deleteItem}
+            />
+          )}
           {division == "active" && (
-            <ActiveScreen deta={filter} modeData ={mode} fun={changeClass} dlt={deleteItem} />
+            <ActiveScreen
+              deta={filter}
+              modeData={mode}
+              fun={changeClass}
+              dlt={deleteItem}
+            />
           )}
           {division == "completed" && (
-            <CompletedScreen dota={filter} modeData ={mode} fun={changeClass} dlt={deleteItem} />
+            <CompletedScreen
+              dota={filter}
+              modeData={mode}
+              fun={changeClass}
+              dlt={deleteItem}
+            />
           )}
 
           <hr />
@@ -213,7 +234,10 @@ const modeChange = ()=>{
               </ul>
             </div>
             <div>
-              <button className={mode?"clear-btn font-bottom":"d-clear-btn"} onClick={()=>clearAll(items)}>
+              <button
+                className={mode ? "clear-btn font-bottom" : "d-clear-btn"}
+                onClick={() => clearAll(items)}
+              >
                 Clear Completed
               </button>
             </div>

@@ -4,7 +4,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import EmptyList from "./EmptyList";
 const ActiveScreen = (props) => {
   return (
-    <div>
+    <div className="scroll-list">
       {props.deta.length > 0 ? props.deta.map((item, index) => {
         return(<div className={props.modeData?"tab":"d-tab"} key={index}>
         <button>

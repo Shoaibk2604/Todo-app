@@ -8,7 +8,7 @@ const EmptyList = () => {
         <Lottie
           animationData={Empty}
           loop={true}
-          style={{ width: "5em", margin: "auto" }}
+          style={{ width: "7em", margin: "auto" }}
         />
         <h5>Empty</h5>
       </div>

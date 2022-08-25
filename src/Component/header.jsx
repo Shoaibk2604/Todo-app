@@ -1,9 +1,9 @@
 // import background from '../assets/header5.jpeg'
 // import Lottie from "lottie-react";
 // import fly from "../lottie/paperplane.json"
-const Header = () => {
+const Header = (props) => {
     return (<div >
-        <div className="header-bg">
+        <div className={props.mode?"header-bg":"header-bg-dark"}>
         </div>
     </div>)
 }

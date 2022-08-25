@@ -5,7 +5,7 @@ import EmptyList from "./EmptyList";
 
 const CompletedScreen = (props) => {
   return (
-    <div>
+    <div className="scroll-list">
       {props.dota.length > 0 ? props.dota.map((item, index) => {
         return (
           <div className={props.modeData?"tab":"d-tab"} key={index}>

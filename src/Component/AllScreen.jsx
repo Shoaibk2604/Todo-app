@@ -4,7 +4,7 @@ import { MdDarkMode, MdDone } from "react-icons/md";
 import EmptyList from "./EmptyList";
 const AllScreen = (props) => {
   return (
-    <div>
+    <div className="scroll-list">
       {props.data.length > 0 ? (
         props.data.map((item, index) => {
           return (
