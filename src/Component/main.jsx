@@ -56,9 +56,15 @@ const Main = (props) => {
   //  local storage get (upload) data
   const getData = () => {
     const get = localStorage.getItem("data");
+    const theme = localStorage.getItem("theme");
     if (get != null || get != undefined) {
       const gotData = JSON.parse(get);
       addItems([...gotData]);
+    }
+    if (theme != null || theme != undefined) {
+      const getTheme = JSON.parse(theme);
+      console.log(getTheme);
+      darkMode(getTheme);
     }
   };
 
@@ -131,15 +137,17 @@ const Main = (props) => {
 
   // DARK MODE
   const modeChange = () => {
-    switch (true) {
-      case mode == true:
-        darkMode(false);
-        break;
-      case mode == false:
-        darkMode(true);
-      default:
-        break;
-    }
+   if(mode===false ){
+    darkMode(true)
+    
+    localStorage.setItem("theme", JSON.stringify(true));
+   }
+   else{
+    darkMode(false)
+    localStorage.setItem("theme", JSON.stringify(false));
+
+   }
+
   };
 
   // Code

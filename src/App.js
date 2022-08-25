@@ -9,7 +9,7 @@ function App() {
 const [mode, darkMode] = useState(true);
 
   return (
-    <div className={mode?"App":"black App"}>
+    <div className={mode?"App":"App black"}>
       <ToastContainer />
       <Header mode={mode}/>
       <Main mode={mode} darkMode={darkMode}/>
